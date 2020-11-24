@@ -17,9 +17,11 @@ namespace OA.Repository.RepositoryClasses
         {
             _dbContext = dbContext;
         }
-        public async Task<IEnumerable<PaymentDetailsForClient>> GetAll()
+        public async Task<IQueryable<PaymentDetailsForClient>> GetAll()
         {
-            return await _dbContext.PaymentDetailsForClients.Where(x => x.Pmid != null).ToListAsync();
+            var result = _dbContext.PaymentDetailsForClients.AsQueryable();
+            //var x = result.AsQueryable;
+            return result;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace RestFullApi.Controllers
 
         // GET: api/PaymentDetailsForClients
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PaymentDetailsForClient>>> GetPaymentDetailsForClients()
+        public async Task<ActionResult<IQueryable<PaymentDetailsForClient>>> GetPaymentDetailsForClients()
         {
             //return await _context.PaymentDetailsForClients.ToListAsync();
             var result = await _paymentDetials.GetAll();

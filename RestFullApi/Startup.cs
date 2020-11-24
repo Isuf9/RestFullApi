@@ -13,6 +13,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using OA.Repository.Models;
+using OA.Repository.RepositoryClasses;
+using OA.Repository.RepositoryInterface;
+using OA.Services.ServiceInterface;
+using OA.Services.ServiceModels;
 
 namespace RestFullApi
 {
@@ -28,13 +32,16 @@ namespace RestFullApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+           // services.AddMvc();
             services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen();
 
             services.AddDbContext<AnuglarAppContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            //services.AddScoped(typeof(IPaymentDetailsRepository), typeof(PaymentDetailsRepository));
+            //services.AddSingleton<IPaymentDetails, PaymentDetails>();
+            services.AddTransient(typeof(IPaymentDetailsRepository), typeof(PaymentDetailsRepository));
+            services.AddTransient<IPaymentDetails, PaymentDetails>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

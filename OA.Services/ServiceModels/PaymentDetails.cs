@@ -3,6 +3,7 @@ using OA.Repository.RepositoryInterface;
 using OA.Services.ServiceInterface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,10 +17,10 @@ namespace OA.Services.ServiceModels
             _paymentDetailsRepository = paymentDetailsRepository;
         }
 
-        public async Task<IEnumerable<PaymentDetailsForClient>> GetAll()
+        public async Task<IQueryable<PaymentDetailsForClient>> GetAll()
         {
             var result = await _paymentDetailsRepository.GetAll();
-            return result;
+            return result.AsQueryable();
         }
     }
 }
