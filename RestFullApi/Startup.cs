@@ -32,16 +32,25 @@ namespace RestFullApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           // services.AddMvc();
+            // services.AddMvc();
             services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen();
 
             services.AddDbContext<AnuglarAppContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddScoped(typeof(IPaymentDetailsRepository), typeof(PaymentDetailsRepository));
-            //services.AddSingleton<IPaymentDetails, PaymentDetails>();
-            services.AddTransient(typeof(IPaymentDetailsRepository), typeof(PaymentDetailsRepository));
+
+            services.AddScoped(typeof(IService<>), typeof(Service<>));
+            services.AddScoped(typeof(IReposotory<>), typeof(Repository<>));
+
             services.AddTransient<IPaymentDetails, PaymentDetails>();
+            services.AddTransient(typeof(IPaymentDetailsRepository), typeof(PaymentDetailsRepository));
+
+            // services.AddTransient<IService, PaymentDetails>();
+            services.AddTransient<IUserService, UsersService>();
+            services.AddTransient(typeof(IUserRepository), typeof(UsersRepository));
+
+            //services.AddTransient(typeof(IService<>), typeof(Service<>));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

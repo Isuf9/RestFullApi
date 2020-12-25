@@ -17,10 +17,14 @@ namespace RestFullApi.Controllers
     {
         private readonly AnuglarAppContext _context;
         private readonly IPaymentDetails _paymentDetials;
-        public PaymentDetailsForClientsController(AnuglarAppContext context, IPaymentDetails paymentDetails)
+        private readonly IService<PaymentDetailsForClient> _service;
+        public PaymentDetailsForClientsController(AnuglarAppContext context,
+            IPaymentDetails paymentDetails,
+            IService<PaymentDetailsForClient> service)
         {
             _context = context;
             _paymentDetials = paymentDetails;
+            _service = service;
         }
 
         // GET: api/PaymentDetailsForClients
@@ -29,53 +33,34 @@ namespace RestFullApi.Controllers
         {
             //return await _context.PaymentDetailsForClients.ToListAsync();
             var result = await _paymentDetials.GetAll();
-            return Ok(result);
+            if(result.Count() >= 0)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+            
         }
 
-        // GET: api/PaymentDetailsForClients/5
+        // GET: api/PaymentDetailsForClients/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<PaymentDetailsForClient>> GetPaymentDetailsForClient(int id)
+        public async Task<ActionResult<PaymentDetailsForClient>> GetPaymentDetailsById(int id)
         {
-            var paymentDetailsForClient = await _context.PaymentDetailsForClients.FindAsync(id);
+            //from self service
+            //var result = await _paymentDetials.GetPaymentDetailsById(id);
 
-            if (paymentDetailsForClient == null)
+            //from general service 
+            var result = await _service.GetById(id.ToString());
+            if(result != null)
             {
-                return NotFound();
+                return Ok(result);
             }
-
-            return paymentDetailsForClient;
-        }
-
-        // PUT: api/PaymentDetailsForClients/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaymentDetailsForClient(int id, PaymentDetailsForClient paymentDetailsForClient)
-        {
-            if (id != paymentDetailsForClient.Pmid)
+            else
             {
-                return BadRequest();
+                return BadRequest(result);
             }
-
-            _context.Entry(paymentDetailsForClient).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PaymentDetailsForClientExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/PaymentDetailsForClients
@@ -84,45 +69,29 @@ namespace RestFullApi.Controllers
         [HttpPost]
         public async Task<ActionResult<PaymentDetailsForClient>> PostPaymentDetailsForClient(PaymentDetailsForClient paymentDetailsForClient)
         {
-            _context.PaymentDetailsForClients.Add(paymentDetailsForClient);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (PaymentDetailsForClientExists(paymentDetailsForClient.Pmid))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            var result =await _paymentDetials.AddPaymentDetails(paymentDetailsForClient);
 
-            return CreatedAtAction("GetPaymentDetailsForClient", new { id = paymentDetailsForClient.Pmid }, paymentDetailsForClient);
+            if(result == true)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
-
-        // DELETE: api/PaymentDetailsForClients/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<PaymentDetailsForClient>> DeletePaymentDetailsForClient(int id)
+        [HttpPost("{email}")]
+        public async Task<IActionResult> VerifyEmailAddres(string email)
         {
-            var paymentDetailsForClient = await _context.PaymentDetailsForClients.FindAsync(id);
-            if (paymentDetailsForClient == null)
+            var result = await _paymentDetials.VerifyEmailAdress(email);
+            if(result == true)
             {
-                return NotFound();
+                return Ok(result);
             }
-
-            _context.PaymentDetailsForClients.Remove(paymentDetailsForClient);
-            await _context.SaveChangesAsync();
-
-            return paymentDetailsForClient;
-        }
-
-        private bool PaymentDetailsForClientExists(int id)
-        {
-            return _context.PaymentDetailsForClients.Any(e => e.Pmid == id);
+            else
+            {
+                return BadRequest(result);
+            }
         }
     }
 }

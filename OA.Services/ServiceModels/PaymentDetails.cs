@@ -17,10 +17,30 @@ namespace OA.Services.ServiceModels
             _paymentDetailsRepository = paymentDetailsRepository;
         }
 
+        public Task<bool> AddPaymentDetails(PaymentDetailsForClient model)
+        {
+            var result = _paymentDetailsRepository.AddPaymentDetails(model);
+            return result;
+        }
+
         public async Task<IQueryable<PaymentDetailsForClient>> GetAll()
         {
             var result = await _paymentDetailsRepository.GetAll();
             return result.AsQueryable();
+        }
+
+        public async Task<PaymentDetailsForClient> GetPaymentDetailsById(int id)
+        {
+            var result = await _paymentDetailsRepository.GetPaymentDetailsById(id);
+            return result;
+        }
+
+        public async Task<bool> VerifyEmailAdress(string email)
+        {
+            // code
+            //throw new NotImplementedException();
+            var result = await _paymentDetailsRepository.VerifyEmailAddres(email);
+            return result;
         }
     }
 }
