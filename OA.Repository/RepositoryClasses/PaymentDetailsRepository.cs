@@ -19,9 +19,9 @@ namespace OA.Repository.RepositoryClasses
             _dbContext = dbContext;
         }
 
-        public async Task<bool> AddPaymentDetails(PaymentDetailsForClient model)
+        public async Task<bool> AddPaymentDetails(PaymentDetails model)
         {
-            var result = _dbContext.PaymentDetailsForClients.Add(model);
+            var result = _dbContext.PaymentDetails.Add(model);
             var saveResult = await _dbContext.SaveChangesAsync();
             if (saveResult > 0)
             {
@@ -33,52 +33,51 @@ namespace OA.Repository.RepositoryClasses
             }
         }
 
-        public async Task<IQueryable<PaymentDetailsForClient>> GetAll()
+        public async Task<IQueryable<PaymentDetails>> GetAll()
         {
-            var result = _dbContext.PaymentDetailsForClients.AsQueryable();
-            //var x = result.AsQueryable;
+            var result = _dbContext.PaymentDetails.AsQueryable();
             return result;
         }
 
-        public async Task<PaymentDetailsForClient> GetPaymentDetailsById(int id)
+        public async Task<PaymentDetails> GetPaymentDetailsById(string id)
         {
-            var result = _dbContext.PaymentDetailsForClients.Where(x => x.Pmid == id).FirstOrDefault();
+            var result = _dbContext.PaymentDetails.Where(x => x.PaymentId == id).FirstOrDefault();
             var x = result;
             return  result;
         }
 
-        public async Task<bool> VerifyEmailAddres(string email)
-        {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri("https://email-checker.p.rapidapi.com/verify/v1?email=isufbajraktari5%40gmail.com"),
-                Headers =
-    {
-        { "x-rapidapi-key", "SIGN-UP-FOR-KEY" },
-        { "x-rapidapi-host", "email-checker.p.rapidapi.com" },
-    },
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                //response.EnsureSuccessStatusCode();
-                //var body = await response.Content.ReadAsStringAsync();
-                //Console.WriteLine(body);
+    //    public async Task<bool> VerifyEmailAddres(string email)
+    //    {
+    //        var client = new HttpClient();
+    //        var request = new HttpRequestMessage
+    //        {
+    //            Method = HttpMethod.Post,
+    //            RequestUri = new Uri("https://email-checker.p.rapidapi.com/verify/v1?email=isufbajraktari5%40gmail.com"),
+    //            Headers =
+    //{
+    //    { "x-rapidapi-key", "SIGN-UP-FOR-KEY" },
+    //    { "x-rapidapi-host", "email-checker.p.rapidapi.com" },
+    //},
+    //        };
+    //        using (var response = await client.SendAsync(request))
+    //        {
+    //            //response.EnsureSuccessStatusCode();
+    //            //var body = await response.Content.ReadAsStringAsync();
+    //            //Console.WriteLine(body);
             
-            if (response.IsSuccessStatusCode)
-                {
-                    response.EnsureSuccessStatusCode();
-                    var body = await response.Content.ReadAsStringAsync();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+    //        if (response.IsSuccessStatusCode)
+    //            {
+    //                response.EnsureSuccessStatusCode();
+    //                var body = await response.Content.ReadAsStringAsync();
+    //                return true;
+    //            }
+    //            else
+    //            {
+    //                return false;
+    //            }
                 
-               // Console.WriteLine(body);
-            }
-        }
+    //           // Console.WriteLine(body);
+    //        }
+    //    }
     }
 }

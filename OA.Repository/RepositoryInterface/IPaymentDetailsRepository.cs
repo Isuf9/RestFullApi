@@ -9,9 +9,9 @@ namespace OA.Repository.RepositoryInterface
 {
     public interface IPaymentDetailsRepository  /*<T> : IReposotory<T> where T : class*/
     {
-        Task<IQueryable<PaymentDetailsForClient>> GetAll();
-        Task<PaymentDetailsForClient> GetPaymentDetailsById(int id);
-        Task<bool> AddPaymentDetails(PaymentDetailsForClient model);
+        Task<IQueryable<PaymentDetails>> GetAll();
+        Task<PaymentDetails> GetPaymentDetailsById(string id);
+        Task<bool> AddPaymentDetails(PaymentDetails model);
         Task<bool> VerifyEmailAddres(string email);
     }
 }

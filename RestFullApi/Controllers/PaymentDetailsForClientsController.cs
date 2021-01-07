@@ -16,11 +16,11 @@ namespace RestFullApi.Controllers
     public class PaymentDetailsForClientsController : ControllerBase
     {
         private readonly AnuglarAppContext _context;
-        private readonly IPaymentDetails _paymentDetials;
-        private readonly IService<PaymentDetailsForClient> _service;
+        private readonly IPaymentDetailsService _paymentDetials;
+        private readonly IService<PaymentDetails> _service;
         public PaymentDetailsForClientsController(AnuglarAppContext context,
-            IPaymentDetails paymentDetails,
-            IService<PaymentDetailsForClient> service)
+            IPaymentDetailsService paymentDetails,
+            IService<PaymentDetails> service)
         {
             _context = context;
             _paymentDetials = paymentDetails;
@@ -32,7 +32,8 @@ namespace RestFullApi.Controllers
         public async Task<ActionResult<IQueryable<PaymentDetailsForClient>>> GetPaymentDetailsForClients()
         {
             //return await _context.PaymentDetailsForClients.ToListAsync();
-            var result = await _paymentDetials.GetAll();
+             var result = await _paymentDetials.GetAll();
+            //var result = await _service.
             if(result.Count() >= 0)
             {
                 return Ok(result);
@@ -46,10 +47,10 @@ namespace RestFullApi.Controllers
 
         // GET: api/PaymentDetailsForClients/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<PaymentDetailsForClient>> GetPaymentDetailsById(int id)
+        public async Task<ActionResult<PaymentDetails>> GetPaymentDetailsById(string id)
         {
             //from self service
-            //var result = await _paymentDetials.GetPaymentDetailsById(id);
+           // var result = await _paymentDetials.GetPaymentDetailsById(id);
 
             //from general service 
             var result = await _service.GetById(id.ToString());

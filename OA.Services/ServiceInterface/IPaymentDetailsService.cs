@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace OA.Services.ServiceInterface
 {
-    public interface IPaymentDetails /*: IService*/
+    public interface IPaymentDetailsService /*: IService*/
     {
-        Task<IQueryable<PaymentDetailsForClient>> GetAll();
-        Task<PaymentDetailsForClient> GetPaymentDetailsById(int id);
-        Task<bool> AddPaymentDetails(PaymentDetailsForClient model);
+        Task<IQueryable<PaymentDetails>> GetAll();
+        Task<PaymentDetails> GetPaymentDetailsById(string id);
+        Task<bool> AddPaymentDetails(PaymentDetails model);
         Task<bool> VerifyEmailAdress(string email);
     }
 }

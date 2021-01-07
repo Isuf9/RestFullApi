@@ -42,7 +42,7 @@ namespace RestFullApi
             services.AddScoped(typeof(IService<>), typeof(Service<>));
             services.AddScoped(typeof(IReposotory<>), typeof(Repository<>));
 
-            services.AddTransient<IPaymentDetails, PaymentDetails>();
+            services.AddTransient<IPaymentDetailsService, PaymentDetailsService>();
             services.AddTransient(typeof(IPaymentDetailsRepository), typeof(PaymentDetailsRepository));
 
             // services.AddTransient<IService, PaymentDetails>();

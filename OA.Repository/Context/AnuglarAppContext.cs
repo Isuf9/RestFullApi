@@ -19,6 +19,7 @@ namespace OA.Repository.Models
         }
 
         public virtual DbSet<PaymentDetailsForClient> PaymentDetailsForClients { get; set; }
+        public virtual DbSet<PaymentDetails> PaymentDetails { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

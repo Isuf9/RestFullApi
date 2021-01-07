@@ -9,27 +9,27 @@ using System.Threading.Tasks;
 
 namespace OA.Services.ServiceModels
 {
-    public class PaymentDetails : IPaymentDetails
+    public class PaymentDetailsService : IPaymentDetailsService
     {
         private readonly IPaymentDetailsRepository _paymentDetailsRepository;
-        public PaymentDetails(IPaymentDetailsRepository paymentDetailsRepository)
+        public PaymentDetailsService(IPaymentDetailsRepository paymentDetailsRepository)
         {
             _paymentDetailsRepository = paymentDetailsRepository;
         }
 
-        public Task<bool> AddPaymentDetails(PaymentDetailsForClient model)
+        public Task<bool> AddPaymentDetails(PaymentDetails model)
         {
             var result = _paymentDetailsRepository.AddPaymentDetails(model);
             return result;
         }
 
-        public async Task<IQueryable<PaymentDetailsForClient>> GetAll()
+        public async Task<IQueryable<PaymentDetails>> GetAll()
         {
             var result = await _paymentDetailsRepository.GetAll();
             return result.AsQueryable();
         }
 
-        public async Task<PaymentDetailsForClient> GetPaymentDetailsById(int id)
+        public async Task<PaymentDetails> GetPaymentDetailsById(string id)
         {
             var result = await _paymentDetailsRepository.GetPaymentDetailsById(id);
             return result;
