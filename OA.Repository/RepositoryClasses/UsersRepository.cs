@@ -29,9 +29,9 @@ namespace OA.Repository.RepositoryClasses
             return result;
         }
 
-        public async Task<bool> DeleteForever(Users user)
+        public bool DeleteForever(Users user)
         {
-            var result =await _repository.Delete(user);
+            var result = _repository.Delete(user);
             if (result)
             {
                 return true;
@@ -49,9 +49,9 @@ namespace OA.Repository.RepositoryClasses
             return user;
         }
 
-        public async Task<bool> Update(Users user)
+        public bool Update(Users user)
         {
-           var result = await _repository.Update(user);
+           var result =  _repository.Update(user);
             if (result != null)
             {
                 return true;

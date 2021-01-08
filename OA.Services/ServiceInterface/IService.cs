@@ -9,8 +9,8 @@ namespace OA.Services.ServiceInterface
     {
         Task<T> GetById(string id);
         Task<T> Create(T model);
-        Task<T> Update(T model);
-        Task<bool> Delete(T model);
+        T Update(T model);
+        bool Delete(T model);
         void SaveChangesAsync();
         void SaveChanges();
     }

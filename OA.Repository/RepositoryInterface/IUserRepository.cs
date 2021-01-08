@@ -10,8 +10,8 @@ namespace OA.Repository.RepositoryInterface
     {
         Task<Users> GetUserById(int id);
         Task<Users> Create(Users user);
-        Task<bool> Update(Users user);
-        Task<bool> DeleteForever(Users user);
+        bool Update(Users user);
+        bool DeleteForever(Users user);
 
     }
 }

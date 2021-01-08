@@ -20,9 +20,9 @@ namespace OA.Services.ServiceModels
             return result;
         }
 
-        public async Task<bool> Delete(T model)
+        public bool Delete(T model)
         {
-            var result = await _resopository.Delete(model);
+            var result = _resopository.Delete(model);
             return result;
         }
 
@@ -42,9 +42,9 @@ namespace OA.Services.ServiceModels
             _resopository.SaveChangesAsync();
         }
 
-        public async Task<T> Update(T model)
+        public T Update(T model)
         {
-            var result =await _resopository.Update(model);
+            var result = _resopository.Update(model);
             return result;
         }
     }

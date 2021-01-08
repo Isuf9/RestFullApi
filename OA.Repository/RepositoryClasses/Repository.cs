@@ -17,25 +17,25 @@ namespace OA.Repository.RepositoryClasses
         }
         public async Task<T> GetById(string id)
         {
-            var user = _context.Set<T>().Find(id);
+            var user =await _context.Set<T>().FindAsync(id);
 
             return user;
         }
         public async Task<T> Create(T model)
         {
-            var user = _context.Set<T>().Add(model);
+            var user =await _context.Set<T>().AddAsync(model);
             SaveChangesAsync();
 
             return user.Entity;
         }
 
-        public async Task<bool> Delete(T model)
+        public bool Delete(T model)
         {
             var user = _context.Set<T>().Remove(model);
             SaveChangesAsync();
             return true;
         }
-        public async Task<T> Update(T model)
+        public T Update(T model)
         {
             var userEdited = _context.Set<T>().Update(model);
             SaveChangesAsync();
