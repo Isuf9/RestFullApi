@@ -55,9 +55,9 @@ namespace RestFullApi.Controllers
         }
         [Route("update")]
         [HttpPut]
-        public async Task<IActionResult> Update(Users user)
+        public IActionResult Update(Users user)
         {
-            var result = await _service.Update(user);
+            var result =  _service.Update(user);
             if (result != null)
             {
                 return Ok(result);
@@ -67,11 +67,11 @@ namespace RestFullApi.Controllers
                 return BadRequest(result);
             }
         }
-        [Route("delete")]
-        [HttpDelete]
-        public async Task<IActionResult> DeleteForever(Users user)
+        //[Route("delete")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteForever(string id)
         {
-            var result = await _service.Delete(user);
+            var result = await _service.Delete(id);
             if (result)
             {
                 return Ok(result);

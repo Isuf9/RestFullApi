@@ -10,7 +10,7 @@ namespace OA.Repository.RepositoryInterface
         Task<T> GetById(string id);
         Task<T> Create(T model);
         T Update(T model);
-        bool Delete(T model);
+        Task<bool> Delete(string id);
         void SaveChangesAsync();
         void SaveChanges();
 

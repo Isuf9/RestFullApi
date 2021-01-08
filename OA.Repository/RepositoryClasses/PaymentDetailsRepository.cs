@@ -35,8 +35,8 @@ namespace OA.Repository.RepositoryClasses
 
         public async Task<IQueryable<PaymentDetails>> GetAll()
         {
-            var result =await _dbContext.PaymentDetails.ToListAsync();
-            return result.AsQueryable();
+            var result = _dbContext.PaymentDetails.AsQueryable();
+            return result;
         }
 
         public async Task<PaymentDetails> GetPaymentDetailsById(string id)

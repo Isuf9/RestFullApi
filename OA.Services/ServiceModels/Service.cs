@@ -20,9 +20,9 @@ namespace OA.Services.ServiceModels
             return result;
         }
 
-        public bool Delete(T model)
+        public Task<bool> Delete(string id)
         {
-            var result = _resopository.Delete(model);
+            var result = _resopository.Delete(id);
             return result;
         }
 

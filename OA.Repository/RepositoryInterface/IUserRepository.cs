@@ -11,7 +11,7 @@ namespace OA.Repository.RepositoryInterface
         Task<Users> GetUserById(int id);
         Task<Users> Create(Users user);
         bool Update(Users user);
-        bool DeleteForever(Users user);
+        Task<bool> DeleteForever(string id);
 
     }
 }

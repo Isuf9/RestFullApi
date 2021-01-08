@@ -27,21 +27,10 @@ namespace RestFullApi.Controllers
                     _service = service;
                 }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(PaymentDetails paymentDetails)
-        {
-            var result = _service.Create(paymentDetails);
-            if(result != null)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
-        }
+       
 
         // GET: api/PaymentDetailsForClients
+        [Route("getAll")]
         [HttpGet]
         public async Task<ActionResult<IQueryable<PaymentDetailsForClient>>> GetPaymentDetailsForClients()
         {
@@ -103,7 +92,7 @@ namespace RestFullApi.Controllers
                 return BadRequest(result);
             }
         }
-        [HttpPost]
+        [HttpPut]
         public  IActionResult UpdateInfoOfPaymentDetails(PaymentDetails model)
         {
             var result =  _service.Update(model);
@@ -117,10 +106,10 @@ namespace RestFullApi.Controllers
             }
 
         }
-        [HttpDelete]
-        public IActionResult DeleteForever(PaymentDetails model)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteForever(string id)
         {
-            var result =  _service.Delete(model);
+            var result = await _service.Delete(id);
             if(result == true)
             {
                 return Ok(result);

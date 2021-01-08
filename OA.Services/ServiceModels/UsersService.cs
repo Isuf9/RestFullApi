@@ -26,14 +26,14 @@ namespace OA.Services.ServiceModels
             var result = await _userRepository.Create(user);
             return result;
         }
-        public async Task<bool> Update(Users user)
+        public bool Update(Users user)
         {
-            var result = await _userRepository.Update(user);
+            var result =  _userRepository.Update(user);
             return result;
         }
-        public async Task<bool> DeleteForever(Users user)
+        public async Task<bool> DeleteForever(string id)
         {
-            var result = await _userRepository.DeleteForever(user);
+            var result = await _userRepository.DeleteForever(id);
             return result;
         }
 

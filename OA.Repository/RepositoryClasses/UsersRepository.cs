@@ -29,9 +29,9 @@ namespace OA.Repository.RepositoryClasses
             return result;
         }
 
-        public bool DeleteForever(Users user)
+        public async Task<bool> DeleteForever(string id)
         {
-            var result = _repository.Delete(user);
+            var result =await _repository.Delete(id);
             if (result)
             {
                 return true;

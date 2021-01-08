@@ -29,9 +29,10 @@ namespace OA.Repository.RepositoryClasses
             return user.Entity;
         }
 
-        public bool Delete(T model)
-        {
-            var user = _context.Set<T>().Remove(model);
+        public async Task<bool> Delete(string id)
+        {   
+            var user = await GetById(id);
+            _context.Set<T>().Remove(user);
             SaveChangesAsync();
             return true;
         }
